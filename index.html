@@ -112,6 +112,11 @@ input[type=date]::-webkit-date-and-time-value{text-align:left;min-height:1.4em}
 footer{text-align:center;color:var(--muted);font-size:.8rem;margin-top:12px;padding:24px 20px 40px;border-top:1px solid var(--line)}
 @media(max-width:640px){.grid>*,.grid>.c3,.grid>.c4,.grid>.c6,.grid>.c8{grid-column:1/-1}.grid>.m6{grid-column:span 6}.card{padding:20px}.scale{grid-template-columns:1fr 1fr}.steps li span.t{display:none}.brand h1{font-size:1rem}.nav .btn{padding:12px 18px}}
 header.top .wrap{position:relative}
+:root:not([data-theme=dark]){color-scheme:light}
+input[type=date]{cursor:pointer}
+input[type=date]::-webkit-calendar-picker-indicator{cursor:pointer;opacity:1;padding:4px;border-radius:6px}
+:root:not([data-theme=dark]) input[type=date]::-webkit-calendar-picker-indicator{filter:invert(21%) sepia(60%) saturate(2300%) hue-rotate(218deg) brightness(.85)}
+:root[data-theme=dark] input[type=date]::-webkit-calendar-picker-indicator{filter:invert(1) brightness(1.1)}
 .icon-btn{margin-left:auto;flex:none;width:44px;height:44px;border-radius:50%;display:grid;place-items:center;cursor:pointer;color:#fff;background:rgba(255,255,255,.12);border:1.5px solid rgba(255,255,255,.45);transition:.15s}
 .icon-btn:hover{background:rgba(255,255,255,.24)}
 .icon-btn:focus-visible,.btn:focus-visible{outline:3px solid var(--sun);outline-offset:2px}
@@ -321,6 +326,7 @@ function ssPick(inp, val){
   inp.value = val; data[inp.id] = val; save(); ssClose(inp);
   inp.classList.remove('invalid'); inp.closest('.q').querySelector('.err').style.display = 'none';
 }
+app.addEventListener('click', e => { const t = e.target; if (t.type === 'date' && t.showPicker) { try { t.showPicker(); } catch (_) {} } });
 app.addEventListener('focusin', e => { if (e.target.dataset.ss !== undefined) ssOpen(e.target); });
 app.addEventListener('click', e => { const t = e.target; if (t.dataset.ss !== undefined && t.nextElementSibling.hidden) ssOpen(t); });
 app.addEventListener('input', e => { if (e.target.dataset.ss !== undefined) ssOpen(e.target); });
